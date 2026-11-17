@@ -19,10 +19,6 @@ return new class extends Migration
             $table->integer('maximum_guests');
             $table->decimal('price_per_night', 10,2);
             $table->boolean('room_status')->default(true);
-            $table->integer('contact_number');
-
-
-
             $table->timestamps();
 
         });
