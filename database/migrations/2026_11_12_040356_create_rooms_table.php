@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('room_name');
             $table->string('room_type');
             $table->text('description');
-            $table->integer('maximum_guests');
+            $table->integer('max_guests');
             $table->decimal('price_per_night', 10,2);
             $table->boolean('room_status')->default(true);
             $table->timestamps();
