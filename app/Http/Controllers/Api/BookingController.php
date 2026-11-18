@@ -13,12 +13,12 @@ class BookingController extends Controller
     // GET /api/bookings (Authenticated: Admin sees all, Guest sees own)
     public function index(Request $request)
     {
-        if ($request->user()->role === 'admin') {
-            $bookings = Booking::with(['user', 'room'])->latest('booking_date')->get();
+        if (strtolower($request->user()->role) === 'admin') {
+            $bookings = Booking::with(['user', 'room'])->orderByDesc('booking_id')->get();
         } else {
             $bookings = Booking::with('room')
                 ->where('user_id', $request->user()->user_id)
-                ->latest('booking_date')
+                ->orderByDesc('booking_id')
                 ->get();
         }
 
@@ -77,7 +77,7 @@ class BookingController extends Controller
     {
         $booking = Booking::with(['user', 'room'])->findOrFail($id);
 
-        if ($request->user()->role !== 'admin' && $booking->user_id !== $request->user()->user_id) {
+        if (strtolower($request->user()->role) !== 'admin' && $booking->user_id !== $request->user()->user_id) {
             return response()->json(['message' => 'Forbidden'], 403);
         }
 
@@ -94,7 +94,7 @@ class BookingController extends Controller
             'booking_status' => 'required|in:Pending,Confirmed,Cancelled',
         ]);
 
-        if ($user->role !== 'admin') {
+        if (strtolower($user->role) !== 'admin') {
             if ($booking->user_id !== $user->user_id || $validated['booking_status'] !== 'Cancelled') {
                 return response()->json(['message' => 'Guests can only cancel their own bookings.'], 403);
             }
@@ -108,7 +108,7 @@ class BookingController extends Controller
     // DELETE /api/bookings/{id} (Admin only)
     public function destroy(Request $request, string $id)
     {
-        if ($request->user()->role !== 'admin') {
+        if (strtolower($request->user()->role) !== 'admin') {
             return response()->json(['message' => 'Forbidden: Admins only'], 403);
         }
 

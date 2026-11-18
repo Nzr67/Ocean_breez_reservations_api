@@ -24,7 +24,7 @@ class RoomController extends Controller
     // POST /api/rooms (Admin only: Add a new room)
     public function store(Request $request)
     {
-        if ($request->user()->role !== 'admin') {
+        if (strtolower($request->user()->role) !== 'admin') {
             return response()->json(['message' => 'Forbidden: Admins only'], 403);
         }
 
@@ -45,7 +45,7 @@ class RoomController extends Controller
     // PUT /api/rooms/{id} (Admin only: Edit a room)
     public function update(Request $request, string $id)
     {
-        if ($request->user()->role !== 'admin') {
+        if (strtolower($request->user()->role) !== 'admin') {
             return response()->json(['message' => 'Forbidden: Admins only'], 403);
         }
 
@@ -68,7 +68,7 @@ class RoomController extends Controller
     // DELETE /api/rooms/{id} (Admin only: Delete a room)
     public function destroy(Request $request, string $id)
     {
-        if ($request->user()->role !== 'admin') {
+        if (strtolower($request->user()->role) !== 'admin') {
             return response()->json(['message' => 'Forbidden: Admins only'], 403);
         }
 
