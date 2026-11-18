@@ -63,6 +63,22 @@ class DatabaseSeeder extends Seeder
                 'max_guests' => 2,
                 'room_status' => true,
             ],
+            [
+                'room_name' => 'Oceanfront Honeymoon Sanctuary',
+                'room_type' => 'Luxury Villa',
+                'description' => 'Secluded cliffside sanctuary with a private outdoor jacuzzi, four-poster canopy bed, candlelit terrace, and uninterrupted Indian Ocean sunset views.',
+                'price_per_night' => 52000,
+                'max_guests' => 2,
+                'room_status' => true,
+            ],
+            [
+                'room_name' => 'Coconut Grove Garden Cabana',
+                'room_type' => 'Deluxe Suite',
+                'description' => 'Tropical timber cabana nestled among swaying coconut palms steps from the beach, featuring a private hammock veranda and open-air stone bath.',
+                'price_per_night' => 31500,
+                'max_guests' => 3,
+                'room_status' => true,
+            ],
         ];
 
         foreach ($rooms as $room) {
